@@ -14,6 +14,10 @@ let flags = {
   festivalHeld: false
 };
 
+/* ✅ EK: FINAL ELEMENTLER */
+const finalImage = document.getElementById("finalImage");
+const finalMusic = document.getElementById("finalMusic");
+
 /* UI SCREEN SWITCH */
 function switchScreen(id) {
   document.querySelectorAll(".screen").forEach(s =>
@@ -150,9 +154,18 @@ function choose(type) {
     applyResult(result);
 
     day++;
+
+    /* ✅ 30. GÜN FİNAL */
     if (day > 30) {
       endTitle.textContent = "Efsane Kral";
       endText.textContent = "30 gün hayatta kaldın.";
+
+      /* FOTOĞRAF GÖSTER */
+      finalImage.style.display = "block";
+
+      /* MÜZİĞİ OTOMATİK ÇAL */
+      finalMusic.play();
+
       clearSave();
       switchScreen("end");
       return;
@@ -198,6 +211,13 @@ document.addEventListener("keydown", e => {
 
 /* BAŞLAT */
 function startGame() {
+
+  /* ✅ AUTOPLAY İZNİ BURADA ALINIYOR */
+  finalMusic.play().then(() => {
+    finalMusic.pause();
+    finalMusic.currentTime = 0;
+  });
+
   switchScreen("game");
 
   if (!loadGame()) {
