@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+  font-family: system-ui;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #1f2f3a, #0b141a);
+  color: white;
+}
+
+.screen {
+  display: none;
+  height: 100vh;
+  padding: 20px;
+}
+
+.screen.active {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  background: #00ff99;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.stat {
+  width: 24%;
+  font-size: 11px;
+}
+
+.bar {
+  background: rgba(255,255,255,.15);
+  border-radius: 6px;
+  overflow: hidden;
+  height: 6px;
+}
+
+.bar div {
+  height: 100%;
+  width: 50%;
+  background: linear-gradient(90deg,#00ff99,#00ccff);
+  transition: width .3s ease;
+}
+
+.day {
+  text-align: center;
+  margin: 10px 0;
+  opacity: .7;
+}
+
+.card-container {
+  height: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 100%;
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(16px);
+  border-radius: 28px;
+  padding: 22px;
+  text-align: center;
+  box-shadow: 0 40px 80px rgba(0,0,0,.45);
+  transition: transform .25s ease, opacity .25s ease;
+}
+
+.card img {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.card.left {
+  transform: translateX(-150%) rotate(-10deg);
+  opacity: 0;
+}
+
+.card.right {
+  transform: translateX(150%) rotate(10deg);
+  opacity: 0;
+}
+
+.hint {
+  text-align: center;
+  font-size: 12px;
+  opacity: .4;
+}
+/* INSTAGRAM + DEVELOPER FOOTER */
+.instagram-footer {
+  position: fixed;
+  bottom: 12px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  z-index: 999;
+  color: #fff;
+  opacity: 0.65;
+}
+
+.instagram-footer .dev {
+  margin-right: 6px;
+  font-weight: 500;
+}
+
+.instagram-footer a {
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ffffff;
+  transition: all 0.25s ease;
+}
+
+/* Premium hover */
+.instagram-footer a:hover {
+  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>30 Gün Tahtta</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="screen active" id="menu">
+  <h1>30 Gün Tahtta</h1>
+  <button onclick="startGame()">Oyuna Başla</button>
+</div>
+
+<div class="screen" id="game">
+
+  <div class="top">
+    <div class="stat">
+      Halk
+      <div class="bar"><div id="peopleBar"></div></div>
+    </div>
+    <div class="stat">
+      Ordu
+      <div class="bar"><div id="armyBar"></div></div>
+    </div>
+    <div class="stat">
+      Hazine
+      <div class="bar"><div id="treasuryBar"></div></div>
+    </div>
+    <div class="stat">
+      İlişki
+      <div class="bar"><div id="relationsBar"></div></div>
+    </div>
+  </div>
+
+  <div class="day" id="day"></div>
+
+  <div class="card-container">
+    <div class="card" id="card">
+      <img id="portrait">
+      <h2 id="cardTitle"></h2>
+      <p id="cardText"></p>
+    </div>
+  </div>
+
+  <div class="hint">← REDDET | KABUL ET →</div>
+</div>
+
+<div class="screen" id="end">
+  <h2 id="endTitle"></h2>
+  <p id="endText"></p>
+  <button onclick="location.reload()">Yeniden Başla</button>
+</div>
+
+<footer class="instagram-footer">
+  <span class="dev">👑 Developed by</span>
+  <a href="https://www.instagram.com/yeahs_mrt/" target="_blank">
+    yeahs_mrt
+  </a>
+</footer>
+
+
+<script src="game.js"></script>
+</body>
+</html>
