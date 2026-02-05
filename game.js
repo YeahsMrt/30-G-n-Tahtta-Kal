@@ -6,6 +6,7 @@ let stats = {
   treasury: 50,
   relations: 50
 };
+let logEntries = [];
 
 /* OYUN HAFIZASI */
 let flags = {
@@ -17,6 +18,8 @@ let flags = {
 /* ✅ EK: FINAL ELEMENTLER */
 const finalImage = document.getElementById("finalImage");
 const finalMusic = document.getElementById("finalMusic");
+const logList = document.getElementById("logList");
+const logEmpty = document.getElementById("logEmpty");
 
 /* UI SCREEN SWITCH */
 function switchScreen(id) {
@@ -109,6 +112,50 @@ function updateUI() {
   day.textContent = `Gün ${day}`;
 }
 
+function renderLog() {
+  logList.innerHTML = "";
+  const recentEntries = logEntries.slice(-6);
+  logEmpty.style.display = recentEntries.length ? "none" : "block";
+  recentEntries.forEach(entry => {
+    const li = document.createElement("li");
+    const effects = (entry.effects || [])
+      .map(effect => `<span class="log-effect ${effect.type}">${effect.label}</span>`)
+      .join("");
+    li.innerHTML = `
+      <div class="log-header">
+        <span>Gün ${entry.day} • ${entry.title}</span>
+        <span class="decision">${entry.decision}</span>
+      </div>
+      <div class="log-effects">${effects}</div>
+    `;
+    logList.appendChild(li);
+  });
+}
+
+function addLogEntry(decisionType, result) {
+  const decisionLabel = decisionType === "yes" ? "Kabul" : "Reddet";
+  const effects = Object.entries(result).map(([key, value]) => {
+    const labelMap = {
+      people: "Halk",
+      army: "Ordu",
+      treasury: "Hazine",
+      relations: "İlişki"
+    };
+    const sign = value > 0 ? "+" : "";
+    return {
+      label: `${labelMap[key]} ${sign}${value}`,
+      type: value >= 0 ? "positive" : "negative"
+    };
+  });
+  logEntries.push({
+    day,
+    title: currentEvent.title,
+    decision: decisionLabel,
+    effects
+  });
+  renderLog();
+}
+
 /* EVENT SEÇ */
 function loadEvent() {
   let available = events.filter(e => !e.requires || e.requires());
@@ -151,6 +198,7 @@ function choose(type) {
 
   setTimeout(() => {
     const result = currentEvent[type]();
+    addLogEntry(type, result);
     applyResult(result);
 
     day++;
@@ -180,7 +228,7 @@ function choose(type) {
 
 /* SAVE */
 function saveGame() {
-  localStorage.setItem("kingGame", JSON.stringify({ day, stats, flags }));
+  localStorage.setItem("kingGame", JSON.stringify({ day, stats, flags, logEntries }));
 }
 
 function loadGame() {
@@ -189,6 +237,7 @@ function loadGame() {
   day = data.day;
   stats = data.stats;
   flags = data.flags;
+  logEntries = data.logEntries || [];
   return true;
 }
 
@@ -224,8 +273,10 @@ function startGame() {
     day = 1;
     stats = { people:50, army:50, treasury:50, relations:50 };
     flags = { raisedTaxes:false, supportedArmy:false, festivalHeld:false };
+    logEntries = [];
   }
 
   updateUI();
+  renderLog();
   loadEvent();
 }
